@@ -16,7 +16,7 @@ final class IFPSTypes {
 	const Extended = 9;
 	const String = 10;
 	const Record = 11;
-	const Array = 12;
+	const _Array = 12;
 	const Pointer = 13;
 	const PChar = 14;
 	const ResourcePointer = 15;
@@ -30,7 +30,7 @@ final class IFPSTypes {
 	const Set = 23;
 	const Currency = 24;
 	const _Class = 25;
-	const Interface = 26;
+	const _Interface = 26;
 	const NotificationVariant = 27;
 	const UnicodeString = 28;
 	const Type = 130;
