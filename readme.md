@@ -17,6 +17,6 @@ Possible future tools, that I will think about developing if the demand exists:
 
 Using disIFPS:
 - Obtain a PascalScript file. When dealing with Inno Setup files, `innounp` can be used to extract the contents, including `CompiledCode.bin`. I have seen an "anti-unpacking" method where Inno Setup files are encrypted, and the included `CompiledCode.bin` (which is not encrypted) skips past the password entry screen by inserting the valid password (included with the PascalScript file as a string or obfuscated string). To work around this, use `innounp` to extract just the `CompiledCode.bin`.
-- `php disIFPS.php <PascalScript file> [disassembly.txt]` - if an output path is not given, the output will be written to standard output.
+- `php DisIFPS.php <PascalScript file> [disassembly.txt]` - if an output path is not given, the output will be written to standard output.
 
 Feel free to submit pull requests; I will look at them when I get time.

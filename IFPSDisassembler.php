@@ -5,7 +5,7 @@ require_once('IFPS.php');
 
 class IFPSDisassembler {
 	private $ifps;
-	
+
 	public function __construct($IFPSObj) {
 		if (!($IFPSObj instanceof IFPS)) throw new Exception("Passed object is not an instance of IFPS");
 		$this->ifps = $IFPSObj;
@@ -55,13 +55,13 @@ class IFPSDisassembler {
 				return "Class";
 			case IFPSTypes::ProcPtr:
 				return "ProcPtr";
-			case IFPSTypes::Interface:
+			case IFPSTypes::_Interface:
 				return "Interface";
 			case IFPSTypes::Set:
 				return "Set";
 			case IFPSTypes::StaticArray:
 				return $this->DumpType($t->ArrayType)."[".$t->Size."]";
-			case IFPSTypes::Array:
+			case IFPSTypes::_Array:
 				return $this->DumpType($t->ArrayType)."[]";
 			case IFPSTypes::Record;
 				$ret = "Record <";
@@ -73,11 +73,11 @@ class IFPSDisassembler {
 				return "Unknown type 0x".dechex($t->BaseType);
 		}
 	}
-	
+
 	public function Disassemble() {
 		return implode("\r\n",array($this->DumpTypes(),$this->DumpVars(),$this->DumpDisasm()));
 	}
-	
+
 	public function DumpTypes() {
 		$ret = "";
 		$i = 0;
@@ -88,7 +88,7 @@ class IFPSDisassembler {
 		}
 		return $ret;
 	}
-	
+
 	public function DumpVars() {
 		$ret = "";
 		$i = 0;
@@ -99,7 +99,7 @@ class IFPSDisassembler {
 		}
 		return $ret;
 	}
-	
+
 	public function DumpOperand($o) {
 		if (!is_object($o)) {
 			if (is_integer($o)) return "0x".dechex($o);
@@ -163,13 +163,13 @@ class IFPSDisassembler {
 				return "UnknownOType".$o->otype;
 		}
 	}
-	
+
 	public function DumpOperands($o,$sep = ", ") {
 		$ret = array();
 		foreach ($o as $op) $ret[] = $this->DumpOperand($op);
 		return implode($sep,$ret);
 	}
-	
+
 	public function DisasmFunc($bytecode) {
 		$ret = "";
 		foreach ($bytecode as $inst) {
@@ -304,7 +304,7 @@ class IFPSDisassembler {
 		}
 		return $ret;
 	}
-	
+
 	public function DumpDisasm() {
 		$ret = "";
 		$i = 0;
@@ -393,7 +393,7 @@ class IFPSDisassembler {
 					$ret .= "func_".dechex($inst->operands[0])."()\r\n";
 				}
 			}
-			
+
 			if (property_exists($f,"FData")) $ret .= $this->DisasmFunc($f->FData);
 			$ret .= "\r\n";
 		}

@@ -110,7 +110,7 @@ class IFPS {
 					$curr->FParamInfo = substr($data,$offset,$d);
 					$offset += $d;
 					break;
-				case IFPSTypes::Interface:
+				case IFPSTypes::_Interface:
 					$curr = (object) array("BaseType" => $basetype);
 					if ($datalen < $offset + 16) throw new Exception("Reached end of file");
 					$guid = (object) unpack("VD1/vD2/vD3",substr($data,$offset,8));
@@ -143,7 +143,7 @@ class IFPS {
 						$curr->StartOffset = $d;
 					}
 					break;
-				case IFPSTypes::Array:
+				case IFPSTypes::_Array:
 					$curr = (object) array("BaseType" => $basetype);
 					$d = IFPSGlobals::ReadUInt32($data,$datalen,$offset);
 					if ($d >= count($this->types)) throw new Exception("Type offset out of range");
@@ -187,7 +187,7 @@ class IFPS {
 					break;
 				case IFPSTypes::WideString:
 				case IFPSTypes::UnicodeString:
-				case IFPSTypes::Interface:
+				case IFPSTypes::_Interface:
 				case IFPSTypes::_Class:
 				case IFPSTypes::PChar:
 				case IFPSTypes::String:
@@ -228,10 +228,10 @@ class IFPS {
 				$this->types[$i] = $curr;
 			}
 		}
-		
+
 		return $offset;
 	}
-	
+
 	private function LoadAttributes($data,$datalen,&$offset) {
 		$ret = array();
 		$attribcount = IFPSGlobals::ReadUInt32($data,$datalen,$offset);
@@ -358,7 +358,7 @@ class IFPS {
 		}
 		return $ret;
 	}
-	
+
 	private function LoadFuncs($data,$origdata) {
 		$offset = 0;
 		$datalen = strlen($data);
@@ -412,7 +412,7 @@ class IFPS {
 		}
 		return $offset;
 	}
-	
+
 	private function LoadVars($data) {
 		$offset = 0;
 		$datalen = strlen($data);
@@ -437,7 +437,7 @@ class IFPS {
 		}
 		return $offset;
 	}
-	
+
 	private function ParseOperand($bc,$bclen,&$offset) {
 		if ($bclen < $offset + 1) return array();
 		$vartype = current(unpack('C',substr($bc,$offset++,1)));
@@ -562,7 +562,7 @@ class IFPS {
 				throw new Exception("Unhandled operand");
 		}
 	}
-	
+
 	private function ParseBytecode($bc) {
 		$ret = array();
 		$offset = 0;
@@ -725,10 +725,10 @@ class IFPS {
 		}
 		return $ret;
 	}
-	
+
 	private function ParseExportDecl($edecl) {
 		$edecl = explode(" ",$edecl);
-		
+
 		$ret = (object) array();
 		$rtype = (int) array_shift($edecl);
 		if ($rtype == -1) $ret->isVoid = true;
