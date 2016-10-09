@@ -636,7 +636,7 @@ class IFPS {
 				case IFPSOpcodes::Compare:
 					if ($bclen < $offset + 1) throw new Exception("Reached end of bytecode");
 					$cop = current(unpack('C',substr($bc,$offset++,1)));
-					$cops = array(">=","<=",">","<","!=","==");
+					$cops = array(">=","<=",">","<","!=","==","in","is");
 					if (!array_key_exists($cop,$cops)) throw new Exception("Unhandled Compare operand");
 					$cop = $cops[$cop];
 					$curr->operands[] = $this->ParseOperand($bc,$bclen,$offset);
