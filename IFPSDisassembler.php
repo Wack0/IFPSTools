@@ -248,7 +248,20 @@ class IFPSDisassembler {
 					$ret .= "compare ".$this->DumpOperand($inst->operands[0]).
 						", ".$this->DumpOperand($inst->operands[1]).
 						" ".$inst->operands[2].
-						" ".$this->DumpOperand($inst->operands[3]);
+						" ";
+					if ($inst->operands[2] == "is") {
+						// if the comparison type is "is", then operand3 is a type, so dump it accordingly
+						$oval = $inst->operands[3]->value;
+						if (!array_key_exists($oval,$this->ifps->types)) $ret .= "type_".dechex($oval);
+						else {
+							$t = $this->ifps->types[$oval];
+							if (property_exists($t,"ExportName")) $ret .= $t->ExportName;
+							else $ret .= $this->DumpType($t);
+						}
+					} else {
+						// otherwise, just dump the operand.
+						$ret .= $this->DumpOperand($inst->operands[3]);
+					}
 					break;
 				case IFPSOpcodes::CallVar:
 					$ret .= "callvar ".$this->DumpOperands($inst->operands);
