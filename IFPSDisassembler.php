@@ -297,7 +297,7 @@ class IFPSDisassembler {
 					$ret .= "inc ".$this->DumpOperands($inst->operands);
 					break;
 				case IFPSOpcodes::Dec:
-					$ret .= "inc ".$this->DumpOperands($inst->operands);
+					$ret .= "dec ".$this->DumpOperands($inst->operands);
 					break;
 				case IFPSOpcodes::PopJump:
 					$ret .= "popjump loc_".dechex($inst->operands[0]);
