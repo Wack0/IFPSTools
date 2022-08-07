@@ -1,5 +1,7 @@
 # IFPSTools
 
+Superseded by [IFPSTools.NET](https://github.com/Wack0/IFPSTools.NET).
+
 This repository contains tools for working with RemObjects PascalScript files, made because the official tools were too weak for my needs (reversing malicious Inno Setup `CompiledCode.bin` files).
 
 Included is:
